@@ -1,0 +1,90 @@
+.registrate-form {
+  position: relative;
+  width: 600px;
+  min-height: 350px;
+  background-color: #f5f3f3;
+  padding: 20px;
+  z-index: 1;
+  box-shadow: 0 0 20px gray;
+}
+
+.registrate-form::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+
+  border: 1px dashed grey;
+}
+
+.registrate-form h1 {
+  font-size: 50px;
+  color: rgb(114, 113, 113);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.registrate-form input {
+  width: 100%;
+  height: 40px;
+  padding-left: 35px;
+  font-size: 15px;
+}
+
+.registrate-form input:focus {
+  border: 3px solid rgb(231, 173, 63);
+  border-radius: 3px;
+  outline: none;
+}
+
+.login,
+.password {
+  padding-bottom: 20px;
+}
+
+.login,
+.password,
+.password2 {
+  position: relative;
+}
+
+.login-icon,
+.password-icon {
+  position: absolute;
+  top: 8px;
+  left: 5px;
+  color: rgb(170, 168, 168);
+}
+
+.registrate-form button {
+  margin-top: 40px;
+  padding: 10px 40px;
+  color: #ffffff;
+  background-color: rgb(218, 86, 34);
+  box-shadow: 0 0 5px rgb(161, 93, 66);
+  border: none;
+  outline: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.registrate-form button:hover {
+  background-color: rgb(233, 92, 36);
+}
+
+.registrate-form a {
+  color: rgb(31, 121, 177);
+}
+
+.registrate-form a:hover {
+  color: rgb(59, 155, 214);
+}
+
+.registrate-form__buttons-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

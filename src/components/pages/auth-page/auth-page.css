@@ -1,0 +1,16 @@
+.auth-page p {
+    color: rgb(114, 113, 113);
+    font-size: 30px;
+}
+
+.auth-page button {
+    margin-top: 40px;
+    padding: 10px 40px;
+    color: #ffffff;
+    background-color: rgb(218, 86, 34);
+    box-shadow: 0 0 5px rgb(161, 93, 66);
+    border: none;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+}
