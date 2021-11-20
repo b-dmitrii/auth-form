@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { Operation } from "../../../store/auth/auth";
 
 const AuthForm = ({ history }) => {
-  const { isLoggedIn } = useSelector((state) => state);
+  const { isLoggedIn} = useSelector((state) => state);  
   const dispatch = useDispatch();
   const validationSchema = yap.object().shape({
     login: yap
@@ -37,14 +37,16 @@ const AuthForm = ({ history }) => {
       }}
       validateOnBlur
       onSubmit={(values) => {
-        console.log(values);
         const payload = {
-          token: genToken(12),
+          login: values.login,
+          password: values.password,
         };
-        setTimeout(() => {
-          console.log(payload);
+        dispatch(Operation.setUser(payload));
+
+        setTimeout(() => {          
+          dispatch(Operation.setToken({ token: genToken(12) }));
+          dispatch(Operation.isLogged(true));
         }, 2000);
-        dispatch(Operation.isLogged(true));
       }}
       validationSchema={validationSchema}
     >

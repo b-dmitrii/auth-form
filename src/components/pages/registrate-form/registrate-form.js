@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { withRouter } from "react-router";
+import { genToken } from "../../../utils";
+import { Operation } from "../../../store/auth/auth";
 
 import { Formik } from "formik";
 import * as yap from "yup";
 
-import { genToken } from "../../../utils";
-
 import "./registrate-form.css";
 
 const RegistrateForm = ({ history }) => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state);
+
   const validationSchema = yap.object().shape({
     login: yap
       .string()
@@ -24,6 +28,12 @@ const RegistrateForm = ({ history }) => {
       .required("Обязательное поле"),
   });
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push("/auth");
+    }
+  }, [isLoggedIn, history]);
+
   return (
     <Formik
       initialValues={{
@@ -33,14 +43,15 @@ const RegistrateForm = ({ history }) => {
       }}
       validateOnBlur
       onSubmit={(values) => {
-        console.log(values);
-
         const payload = {
-          token: genToken(12),
+          login: values.login,
+          password: values.password,
         };
+        dispatch(Operation.setUser(payload));
+
         setTimeout(() => {
-          console.log(payload);
-          history.push("/");
+          dispatch(Operation.setToken({ token: genToken(12) }));
+          dispatch(Operation.isLogged(true));
         }, 2000);
       }}
       validationSchema={validationSchema}

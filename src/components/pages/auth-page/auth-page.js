@@ -2,10 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Operation } from "../../../store/auth/auth";
 import { withRouter } from "react-router";
+import { useSelector } from "react-redux";
 
 import "./auth-page.css";
 
 const AuthPage = ({ history }) => {
+  const { user } = useSelector((state) => state);
+  const {login} = user
   const dispatch = useDispatch();
 
   const exit = () => {
@@ -14,7 +17,7 @@ const AuthPage = ({ history }) => {
   };
   return (
     <div className="auth-page">
-      <p>Вы успешно авторизовались</p>
+      <p>{`Hello ${login}`}</p>
       <button onClick={() => exit()}>Выйти</button>
     </div>
   );
