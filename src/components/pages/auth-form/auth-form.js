@@ -4,16 +4,17 @@ import PersonIcon from "@material-ui/icons/Person";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { Formik } from "formik";
 import * as yap from "yup";
-import { genToken } from "../../../utils";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router";
-
-import "./auth-form.css";
 import { useDispatch } from "react-redux";
 import { Operation } from "../../../store/auth/auth";
 
+import "./auth-form.css";
+
+
 const AuthForm = ({ history }) => {
-  const { isLoggedIn} = useSelector((state) => state);  
+  const { isLoggedIn } = useSelector((state) => state);
+  
   const dispatch = useDispatch();
   const validationSchema = yap.object().shape({
     login: yap
@@ -41,12 +42,7 @@ const AuthForm = ({ history }) => {
           login: values.login,
           password: values.password,
         };
-        dispatch(Operation.setUser(payload));
-
-        setTimeout(() => {          
-          dispatch(Operation.setToken({ token: genToken(12) }));
-          dispatch(Operation.isLogged(true));
-        }, 2000);
+        dispatch(Operation.loadData(payload));       
       }}
       validationSchema={validationSchema}
     >

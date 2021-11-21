@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { withRouter } from "react-router";
-import { genToken } from "../../../utils";
 import { Operation } from "../../../store/auth/auth";
-
 import { Formik } from "formik";
 import * as yap from "yup";
 
@@ -15,7 +13,7 @@ import "./registrate-form.css";
 const RegistrateForm = ({ history }) => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state);
-
+  
   const validationSchema = yap.object().shape({
     login: yap
       .string()
@@ -47,12 +45,7 @@ const RegistrateForm = ({ history }) => {
           login: values.login,
           password: values.password,
         };
-        dispatch(Operation.setUser(payload));
-
-        setTimeout(() => {
-          dispatch(Operation.setToken({ token: genToken(12) }));
-          dispatch(Operation.isLogged(true));
-        }, 2000);
+        dispatch(Operation.loadData(payload));
       }}
       validationSchema={validationSchema}
     >

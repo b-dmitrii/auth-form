@@ -1,4 +1,4 @@
-import { extend } from "../../utils";
+import { extend, genToken } from "../../utils";
 
 const initialState = {
   isLoggedIn: false,
@@ -10,12 +10,17 @@ const initialState = {
 };
 
 export const ActionType = {
+  LOAD_DATA: `LOAD_DATA`,
   IS_LOGGED: `IS_LOGGED`,
   SET_USER: `SET_USER`,
   SET_TOKEN: `SET_TOKEN`,
 };
 
 export const ActionCreator = {
+  loadData: (data) => ({
+    type: ActionType.LOAD_DATA,
+    payload: data,
+  }),
   isLogged: (flag) => ({
     type: ActionType.IS_LOGGED,
     payload: flag,
@@ -31,15 +36,17 @@ export const ActionCreator = {
 };
 
 export const Operation = {
+  loadData: (data) => (dispatch) => {
+    setTimeout(() => {      
+      dispatch(ActionCreator.setUser(data));
+      dispatch(ActionCreator.setToken(genToken(12)));
+      dispatch(ActionCreator.isLogged(true));
+    }, 2000);
+  },
+
   isLogged: (flag) => (dispatch) => {
     dispatch(ActionCreator.isLogged(flag));
-  },
-  setUser: (obj) => (dispatch) => {
-    dispatch(ActionCreator.setUser(obj));
-  },
-  setToken: (token) => (dispatch) => {
-    dispatch(ActionCreator.setToken(token));
-  },
+  },  
 };
 
 export const reducer = (state = initialState, action) => {
@@ -58,7 +65,7 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SET_TOKEN:
       return extend(state, {
         user: extend(state.user, {
-          token: action.payload.token,
+          token: action.payload,
         }),
       });
 
